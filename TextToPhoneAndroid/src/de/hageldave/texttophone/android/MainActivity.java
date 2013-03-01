@@ -1,16 +1,25 @@
 package de.hageldave.texttophone.android;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
+
 import de.hageldave.texttophone.android.MessageReceivingClient.LostConnectionListener;
 import de.hageldave.texttophone.android.MessageReceivingClient.NewMessageListener;
 import de.hageldave.texttophone.android.R;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,6 +62,43 @@ public class MainActivity extends Activity {
 		// nextmsg button aus layout holen
 		this.nextmsg_bttn = (Button)findViewById(R.id.next_msg);
 		this.nextmsg_bttn.setEnabled(false);
+		// host adresse an eigenene adresse anpassen
+		setUpDefaultPreferences();
+	}
+	
+	
+	private void setUpDefaultPreferences(){
+		String hostsetting = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_host_name", "0.0.0.0");
+		String myIP = getlocalIP();
+		System.out.println(myIP);
+		if(hostsetting.equals("0.0.0.0") || hostsetting.equals("")){
+			System.out.println("setting");
+			hostsetting = myIP.substring(0, myIP.lastIndexOf(".")) +".";
+			System.out.println(hostsetting);
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putString("pref_key_host_name", hostsetting).commit();
+		}
+	}
+	
+	
+	private String getlocalIP(){
+		Enumeration<NetworkInterface> interfaces;
+		try {
+			interfaces = NetworkInterface.getNetworkInterfaces();
+			NetworkInterface nI;
+			while(interfaces.hasMoreElements()){
+				nI = interfaces.nextElement();
+				Enumeration<InetAddress> adresses= nI.getInetAddresses();
+				InetAddress iA;
+				while(adresses.hasMoreElements()){
+					iA = adresses.nextElement();
+					if(!iA.isLoopbackAddress()){
+						return iA.getHostAddress();
+					}
+				}
+			}
+		} catch (SocketException e) {
+		}
+		return "0.0.0.0";
 	}
 
 	
@@ -114,6 +160,7 @@ public class MainActivity extends Activity {
 			client = new MessageReceivingClient();
 			addListenersToClient();
 			// versuche client zu verbinden
+			applyConnectionSetting();
 			client.attemptConnection(currentConnectionSetting.getHostName(), currentConnectionSetting.getHostPort());
 			// wenn erfolgreich:
 			if(client.isConnected){
@@ -133,6 +180,19 @@ public class MainActivity extends Activity {
 			} catch (InterruptedException e) {
 			}
 			client = null;
+		}
+	}
+	
+	
+	private void applyConnectionSetting(){
+		currentConnectionSetting.setHostName(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_host_name", "0.0.0.0"));
+		int port = 0;
+		try {
+			port = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_port", "0"));
+		} catch (NumberFormatException e) {
+		}
+		if(port >= 0 && port <= 65535){
+			currentConnectionSetting.setHostPort(port);
 		}
 	}
 	
@@ -186,17 +246,17 @@ public class MainActivity extends Activity {
 	}
 	
 //TODO: einstellungen bei optionen aufrufen
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//		case R.id.menu_settings:
-//			// open settings
-//			break;
-//		default:
-//			break;
-//		}
-//		
-//		return true;
-//	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsActivity.class));
+			break;
+		default:
+			break;
+		}
+		
+		return true;
+	}
 
 }

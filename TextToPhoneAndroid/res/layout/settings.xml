@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/pref_curr_settings_title"
+        android:key="pref_key_curr_settings">
+        <EditTextPreference
+            android:key="pref_key_host_name"
+            android:summary="@string/pref_sum_host_name"
+            android:title="@string/pref_title_host_name"
+            android:inputType="textUri"
+            android:defaultValue="@string/pref_host_default"/>
+        <EditTextPreference
+            android:key="pref_key_port"
+            android:summary="@string/pref_sum_port"
+            android:title="@string/pref_title_port"
+            android:inputType="number"
+            android:defaultValue="80"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_prev_settings_title"
+        android:key="pref_key_prev_settings">
+        
+    </PreferenceCategory>
+</PreferenceScreen>
