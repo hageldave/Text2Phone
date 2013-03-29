@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		// titel und icon des fensters
 		setTitle(" Text2Phone");
-		setIconImage(new ImageIcon("src/res/text2phone_icon.png").getImage());
+		setIconImage(new ImageIcon("res/text2phone_icon.png").getImage());
 		// Komponenten hinzufuegen
 		buildStartStopButton();
 		getContentPane().add(button_start_stop);
