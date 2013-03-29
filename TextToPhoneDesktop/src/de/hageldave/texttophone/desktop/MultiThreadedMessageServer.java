@@ -24,7 +24,7 @@ public class MultiThreadedMessageServer extends Thread {
 	
 	/**
 	 * Konstruktor
-	 * @param port port über den der server laeuft
+	 * @param port port ï¿½ber den der server laeuft
 	 * @param ownerframe frame das den server startet und beendet
 	 * @throws IllegalArgumentException wenn port nicht gueltig
 	 */
@@ -178,7 +178,7 @@ public class MultiThreadedMessageServer extends Thread {
 		
 		/** 
 		 * <b>(!)</b> in der gegebenen Anwendung schickt der client im Regelfall
-		 * keine Nachrichten sondern empfängt nur. <br>
+		 * keine Nachrichten sondern empfï¿½ngt nur. <br>
 		 * Die Routine ist dennoch nuetzlich um einen Verbindungsabbruch
 		 * zu bemerken.
 		 */

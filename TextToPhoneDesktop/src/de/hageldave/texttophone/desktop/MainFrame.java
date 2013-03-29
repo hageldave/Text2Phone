@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -131,13 +134,31 @@ public class MainFrame extends JFrame {
 		// normale farbe fuer die schrift
 		this.label_adress.setForeground(getForeground());
 		if(show){
-			try {
-				this.label_adress.setText(InetAddress.getLocalHost().getHostAddress());
-			} catch (UnknownHostException e) {
-			}
+			this.label_adress.setText(getlocalIP());
 		} else {
 			this.label_adress.setText("Serveradress");
 		}
+	}
+	
+	private String getlocalIP(){
+		Enumeration<NetworkInterface> interfaces;
+		try {
+			interfaces = NetworkInterface.getNetworkInterfaces();
+			NetworkInterface nI;
+			while(interfaces.hasMoreElements()){
+				nI = interfaces.nextElement();
+				Enumeration<InetAddress> adresses= nI.getInetAddresses();
+				InetAddress iA;
+				while(adresses.hasMoreElements()){
+					iA = adresses.nextElement();
+					if(!iA.isLoopbackAddress() && iA.isSiteLocalAddress()){
+						return iA.getHostAddress();
+					}
+				}
+			}
+		} catch (SocketException e) {
+		}
+		return null;
 	}
 	
 	/**
