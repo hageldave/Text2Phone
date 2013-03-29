@@ -2,11 +2,21 @@
 <resources>
 
     <string name="app_name">Text 2 Phone</string>
+    <string name="app_name_settings">Text 2 Phone - Settings</string>
     <string name="rcvd_msg">None received yet</string>
     <string name="button_copy">copy all</string>
     <string name="menu_settings">Settings</string>
     <string name="button_nextMsg">next Message</string>
     <string name="button_cnct">connect to computer</string>
     <string name="button_disco">disconnect</string>
+    <string name="pref_curr_settings_title">current connection setting</string>
+    <string name="pref_sum_host_name">name or IP of host computer running the server</string>
+    <string name="pref_title_host_name">Host Name</string>
+    <string name="pref_sum_port">Port the Server is running over (0 to 65535)</string>
+    <string name="pref_title_port">Port</string>
+    <string name="pref_prev_settings_title">previous connection settings</string>
+    <string name="pref_host_default">0.0.0.0</string>
+    <string name="pref_sum_settings_list">previously used settings that actually worked</string>
+    <string name="pref_title_settings_list">previous settings</string>
 
 </resources>

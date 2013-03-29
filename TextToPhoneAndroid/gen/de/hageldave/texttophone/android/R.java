@@ -21,18 +21,29 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int settings=0x7f030001;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int button_cnct=0x7f040005;
-        public static final int button_copy=0x7f040002;
-        public static final int button_disco=0x7f040006;
-        public static final int button_nextMsg=0x7f040004;
-        public static final int menu_settings=0x7f040003;
-        public static final int rcvd_msg=0x7f040001;
+        public static final int app_name_settings=0x7f040001;
+        public static final int button_cnct=0x7f040006;
+        public static final int button_copy=0x7f040003;
+        public static final int button_disco=0x7f040007;
+        public static final int button_nextMsg=0x7f040005;
+        public static final int menu_settings=0x7f040004;
+        public static final int pref_curr_settings_title=0x7f040008;
+        public static final int pref_host_default=0x7f04000e;
+        public static final int pref_prev_settings_title=0x7f04000d;
+        public static final int pref_sum_host_name=0x7f040009;
+        public static final int pref_sum_port=0x7f04000b;
+        public static final int pref_sum_settings_list=0x7f04000f;
+        public static final int pref_title_host_name=0x7f04000a;
+        public static final int pref_title_port=0x7f04000c;
+        public static final int pref_title_settings_list=0x7f040010;
+        public static final int rcvd_msg=0x7f040002;
     }
     public static final class style {
         /** 
